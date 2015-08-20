@@ -31,6 +31,8 @@ import System.IO.Unsafe
 import Text.Printf
 import Unsafe.Coerce
 
+import qualified Data.Text as Text
+
 import Paths_hp2any_manager (getDataFileName)
 
 -- * OpenGL specific auxiliary functions
@@ -139,7 +141,7 @@ files. -}
 makeProfileChooserDialog :: IO FileChooserDialog
 makeProfileChooserDialog = do
   dialog <- fileChooserDialogNew (Just "Load profile") Nothing FileChooserActionOpen
-            [(stockOpen,ResponseOk),(stockCancel,ResponseCancel)]
+            [(Text.unpack stockOpen,ResponseOk),(Text.unpack stockCancel,ResponseCancel)]
   mapM_ (fileChooserAddFilter dialog) =<< makeFileFilters [("Heap profiles","*.hp"),("All files","*")]
   fileChooserSetSelectMultiple dialog True
 
@@ -383,7 +385,7 @@ makeGraphCanvas selectRgb prof = do
   -- Repaint handler, called after every resize for instance.
   onExpose glCanvas $ const $ repaint >> return True
 
-  coordLabel <- labelNew Nothing
+  coordLabel <- labelNew (Nothing :: Maybe String)
   boxPackStart mainBox coordLabel PackNatural 0
 
   -- Highlighting cost centre names on hover and displaying
@@ -397,9 +399,9 @@ makeGraphCanvas selectRgb prof = do
 
     (t1,t2) <- getInterval
     c <- getMaxCost
-    labelSetText coordLabel $ printf " time=%0.2f, cost=%s "
+    labelSetText coordLabel $ (printf " time=%0.2f, cost=%s "
         (t1+eventX evt*(t2-t1)/fromIntegral w)
-        (showBigInteger ((fromIntegral h-fromIntegral y)*fromIntegral c `div` fromIntegral h :: Integer))
+        (showBigInteger ((fromIntegral h-fromIntegral y)*fromIntegral c `div` fromIntegral h :: Integer)) :: String)
 
     -- Highlighting current cost centre under the mouse.
     withGLDrawingArea glCanvas $ \glw -> do

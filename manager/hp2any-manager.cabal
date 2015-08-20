@@ -28,7 +28,7 @@ Executable hp2any-manager
   Main-IS:        Manager.hs
   Build-Depends:  base >= 4 && < 5, containers, array, filepath, directory, time,
                   glib, gtk, gtkglext, glade, cairo, OpenGL,
-                  bytestring, hp2any-core, hp2any-graph
+                  bytestring, hp2any-core, hp2any-graph, text
   GHC-Options:    -Wall -O2
 
 source-repository head
