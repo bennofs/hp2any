@@ -59,7 +59,8 @@ import Profiling.Heap.Network
 
 -- Stuff needed only to create a time stamp
 import Data.Time.LocalTime (getZonedTime)
-import Data.Time.Format (formatTime, defaultTimeLocale)
+import Data.Time.Format (formatTime)
+import Data.Time.Locale.Compat (defaultTimeLocale)  
 
 
 type Trie v = Map ByteString v

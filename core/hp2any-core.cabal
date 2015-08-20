@@ -38,8 +38,8 @@ Library
     Profiling.Heap.Types
 
   Build-Depends: base >= 4 && < 5, containers, time, directory,
-                 filepath, process, old-locale, network,
-                 bytestring, attoparsec
+                 filepath, process, network,
+                 bytestring, attoparsec, time-locale-compat
   ghc-options:   -Wall -O2
   ghc-prof-options: -prof -auto-all -caf-all
 
